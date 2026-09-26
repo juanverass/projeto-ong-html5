@@ -17,6 +17,7 @@ projeto-ong/
 ├── css/       style.css
 ├── js/        app.js, router.js, templates.js, storage.js, validacoes.js
 └── imagens/   ong-home.webp, projeto-educacao.webp, voluntariado-doacoes.webp
+               projeto_alimentos.png, projeto_doacoes.png, projeto_voluntariado.png
 ```
 
 ## Como executar
