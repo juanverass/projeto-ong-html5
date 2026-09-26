@@ -430,7 +430,8 @@ button,
     border: 2px solid var(--cor-primaria);
     border-radius: var(--raio-borda);
     cursor: pointer;
-    transition: 0.3s;
+    /* Sem animar o outline: o anel de foco aparece imediatamente */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
 button:hover,
@@ -442,8 +443,15 @@ button:hover,
 }
 
 /* Anel de foco em duas cores: visível sobre fundos claros e escuros */
+/* Anel de foco só na navegação por teclado (:focus-visible). Ao clicar com o
+   mouse o anel não aparece, mas o foco continua no botão. */
 button:focus,
 .botao:focus {
+    outline: none;
+}
+
+button:focus-visible,
+.botao:focus-visible {
     outline: 3px solid var(--cor-secundaria);
     outline-offset: 2px;
     box-shadow: 0 0 0 5px var(--cor-texto);
@@ -1466,8 +1474,8 @@ body.alto-contraste .rodape {
     color: #000000;
 }
 
-body.alto-contraste button:focus,
-body.alto-contraste .botao:focus {
+body.alto-contraste button:focus-visible,
+body.alto-contraste .botao:focus-visible {
     outline-color: #FFD700;
     box-shadow: 0 0 0 5px #000000;
 }

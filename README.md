@@ -2,10 +2,10 @@
 
 Plataforma acadêmica que simula a presença digital de uma ONG, com páginas de projetos sociais, voluntariado, doações e cadastro de participantes. O projeto foi construído ao longo de quatro Experiências Práticas, partindo de HTML5 semântico e chegando a uma SPA acessível, otimizada e pronta para produção.
 
-- **Versão atual:** 1.3.0
+- **Versão atual:** 1.3.1
+- **Produção (Vercel):** https://projeto-ong-html5.vercel.app
 - **Repositório:** https://github.com/juanverass/projeto-ong-html5
 - **GitHub Pages (código-fonte, sem build):** https://juanverass.github.io/projeto-ong-html5/
-- **Produção (Vercel):** veja a seção [Produção](#produção)
 
 ## Funcionalidades
 
@@ -26,7 +26,7 @@ Plataforma acadêmica que simula a presença digital de uma ONG, com páginas de
 - [IMask.js](https://imask.js.org/) 7.6.1, via CDN com verificação de integridade (SRI)
 - [Vite](https://vite.dev/) 8, para servidor de desenvolvimento, build e minificação
 - Git e GitHub (issues, milestone, pull requests e releases)
-- Vercel, para hospedagem de produção (configuração em `vercel.json`)
+- Vercel, para hospedagem de produção e deploy contínuo a partir da `main` (configuração em `vercel.json`)
 
 ## Estrutura
 
@@ -48,7 +48,7 @@ projeto-ong/
 ├── imagens/            WebP usados no site (+ PNGs originais de referência)
 ├── package.json        scripts dev/build/preview
 ├── vite.config.js      entradas HTML e base relativa
-└── vercel.json         configuração de deploy
+└── vercel.json         deploy, redirecionamento de / e cache dos assets
 ```
 
 **Fluxo entre os módulos:** `app.js` importa `router.js`, `validacoes.js` e `storage.js`. O `router.js` e o `validacoes.js` importam `templates.js`. Não há dependências circulares.
@@ -93,8 +93,9 @@ O projeto foi desenvolvido e revisado visando atender aos principais critérios 
   - nenhum `tabindex` positivo.
 - **Foco visível:**
   - `:focus-visible` global, em azul `#1C5FB8` sobre fundos claros e em amarelo sobre os fundos verdes;
-  - botões com anel duplo (amarelo + escuro);
-  - nenhum `outline: none` sem substituto.
+  - botões com anel duplo (amarelo + escuro), que aparece na navegação por teclado e não fica marcado depois de um clique com o mouse;
+  - o anel aparece imediatamente, sem animação;
+  - nenhum `outline: none` sem substituto (`:focus-visible`).
 - **Menu hambúrguer:** `aria-controls="menu-principal"`, `aria-expanded` e nome acessível que alterna entre "Abrir menu" e "Fechar menu".
 - **Formulário:**
   - `label` ligado por `for`/`id` em todos os campos e `required` semântico;
@@ -138,26 +139,28 @@ Além da tabela, um teste percorre todos os textos visíveis das três páginas,
   - `feature/*` ou `feat/*`: funcionalidades;
   - `hotfix/*`: correções urgentes a partir da `main`.
 
-  O histórico usa os dois prefixos de feature. As Experiências I e II usaram `feature/`, e a partir da III passou a ser `feat/`, alinhado ao tipo do Conventional Commits. A `develop` foi criada na Experiência IV a partir da `main` estável. Nenhuma `hotfix/*` foi necessária até agora.
+  O histórico usa os dois prefixos de feature. As Experiências I e II usaram `feature/`, e a partir da III passou a ser `feat/`, alinhado ao tipo do Conventional Commits. A `develop` foi criada na Experiência IV a partir da `main` estável. A primeira `hotfix/*` foi a `hotfix/1.3.1`, criada a partir da `main`, integrada à `main` por PR e depois levada de volta à `develop`.
 - **Pull Requests:** toda mudança entra por PR, primeiro `feat/*` → `develop` e depois `develop` → `main` na release.
 - **Conventional Commits:** `feat:`, `fix:`, `docs:`, `refactor:`, `style:`, `build:` e `chore:`. Os commits das primeiras experiências são anteriores a essa convenção e não foram reescritos.
 - **SemVer (`MAJOR.MINOR.PATCH`):** a versão 1.3.0 é a primeira publicada como tag. As experiências anteriores equivalem a 1.0.0 (HTML5), 1.1.0 (CSS) e 1.2.0 (SPA), mas não receberam tag.
 
 ## Releases
 
+- **v1.3.1 — Hotfix de foco e cache:** o anel de foco só aparece na navegação por teclado e surge sem animação; assets com cache de longo prazo na Vercel; URL de produção documentada.
 - **v1.3.0 — Acessibilidade e Produção:** melhorias WCAG 2.1 AA, navegação por teclado, alto contraste, documentação, otimização, build com Vite e preparação para deploy. Veja em [Releases](https://github.com/juanverass/projeto-ong-html5/releases).
 
 ## Testes
 
 Os testes foram automatizados com Puppeteer (Chrome) e [axe-core](https://github.com/dequelabs/axe-core), e executados no `npm run dev` e no `npm run preview` (build de produção). Os scripts de teste ficam fora do repositório.
 
-- **Acessibilidade: 59 verificações.**
+- **Acessibilidade: 63 verificações.**
   - axe-core sem violações WCAG 2.1 A/AA nas três páginas, nos modos normal e alto contraste, incluindo o formulário com erros exibidos;
   - landmarks, títulos, `alt`, `width`/`height`, labels e ausência de `tabindex` positivo;
   - skip link;
   - ordem de Tab no cabeçalho, dropdown, menu mobile e formulário;
   - Enter, Space, setas e Esc;
   - foco visível em todas as paradas de Tab;
+  - anel de foco ausente após clique com o mouse e presente com Tab, nos dois modos;
   - alto contraste (ativar pelo teclado, `aria-pressed`, persistência e navegação);
   - `aria-invalid` e `aria-describedby`;
   - toast sem roubar o foco;
@@ -168,15 +171,19 @@ Os testes foram automatizados com Puppeteer (Chrome) e [axe-core](https://github
   - envio válido e máscaras;
   - localStorage (salvar, recarregar, fechar e reabrir o navegador, apagar, JSON corrompido, XSS);
   - menu, dropdown, toast e responsividade em 375/480/768/1024/1440px.
-- **Lighthouse** (`vite preview`, rotas Início, Projetos e Cadastro):
+- **Ambientes testados:** as duas suítes rodaram no `npm run dev`, no `npm run preview` e na produção (https://projeto-ong-html5.vercel.app), todas sem falhas.
+- **Lighthouse na produção** (Vercel, página inicial):
 
   | Categoria | Mobile | Desktop |
   |---|---|---|
-  | Performance | 99–100 | 100 |
+  | Performance | 99 | 100 |
   | Acessibilidade | 100 | 100 |
   | Best Practices | 100 | 100 |
+  | SEO | 100 | 100 |
   | CLS | 0 | 0 |
-  | LCP | 1,6–2,0 s | 0,5–0,6 s |
+  | LCP | 1,9 s | 0,5 s |
+
+  No `vite preview` local, o SEO ficou em 91–92 só porque o servidor de teste responde `/robots.txt` com o HTML da aplicação.
 
 - **W3C:** o Nu HTML Checker não aponta erros nem avisos nos HTMLs (fonte, build e HTML renderizado de cada rota). O CSS Validator (Jigsaw) dá 0 erros; os 12 avisos são informativos, porque ele não verifica variáveis CSS.
 - **Console e rede:** nenhum erro, aviso ou recurso 404 durante os fluxos.
@@ -190,17 +197,24 @@ Os testes foram automatizados com Puppeteer (Chrome) e [axe-core](https://github
 - O botão hambúrguer tinha um nome genérico ("Menu de navegação"). Agora ele alterna entre "Abrir menu" e "Fechar menu".
 - A propriedade obsoleta `clip` foi trocada por `clip-path`, eliminando os avisos do Jigsaw.
 
+### Correções da versão 1.3.1 (hotfix)
+
+- **Anel de foco depois do clique:** o anel amarelo continuava visível após clicar num botão com o mouse, porque o estilo usava `:focus`. Agora usa `:focus-visible`, então aparece só na navegação por teclado.
+- **Anel com animação:** a regra `transition: 0.3s` animava também o `outline`, e o anel de foco crescia devagar. A transição agora vale só para cor, borda, sombra e transformação.
+- **Cache dos assets:** a Vercel servia os arquivos com hash no nome com `max-age=0`. O `vercel.json` passou a enviar `Cache-Control: public, max-age=31536000, immutable` para `/assets/*`.
+- **Medição do JS:** na v1.3.0, o tamanho original do JavaScript (40.906 B) incluía caracteres CR de quebras de linha do Windows. Normalizado em LF, o valor correto é 40.296 B, e a tabela abaixo usa os números corrigidos.
+
 ## Otimização
 
-Medições reais. O "original" é o código-fonte e a "produção" é a saída do `npm run build`.
+Medições reais da v1.3.1, com quebras de linha normalizadas em LF. O "original" é o código-fonte e a "produção" é a saída do `npm run build`.
 
 | Recurso | Original | Produção | Redução |
 |---|---|---|---|
-| CSS (`style.css`) | 31.668 B | 20.619 B | 34,9% |
-| JavaScript (5 módulos → 1 bundle) | 40.906 B | 26.322 B | 35,7% |
-| CSS + JS | 72.574 B | 46.941 B | **35,3%** |
-| CSS com gzip | 6.543 B | 4.519 B | 30,9% |
-| JS com gzip | 10.709 B | 7.763 B | 27,5% |
+| CSS (`style.css`) | 32.046 B | 20.759 B | 35,2% |
+| JavaScript (5 módulos → 1 bundle) | 40.296 B | 26.322 B | 34,7% |
+| CSS + JS | 72.342 B | 47.081 B | **34,9%** |
+| CSS com gzip | 6.640 B | 4.521 B | 31,9% |
+| JS com gzip | 10.627 B | 7.747 B | 27,1% |
 | HTML (`html/index.html`) | 3.815 B | 3.858 B | −1,1% |
 
 *Redução = (original − produção) ÷ original × 100.*
@@ -219,29 +233,26 @@ Medições reais. O "original" é o código-fonte e a "produção" é a saída d
   - a imagem principal usa `fetchpriority="high"` e as demais usam `loading="lazy"` e `decoding="async"`;
   - `preconnect` para o CDN do IMask;
   - scripts com `defer`/`type="module"`, sem bloquear a renderização.
+- **Cache:** os arquivos em `/assets/` têm hash no nome, então a Vercel os serve com `Cache-Control: public, max-age=31536000, immutable`. Nas visitas seguintes, o navegador não baixa de novo o CSS, o JS e as imagens.
 - **Oportunidade não aplicada:** o Lighthouse aponta que imagens responsivas (`srcset`) economizariam cerca de 85 KiB no celular. Não implementei para não criar versões extras das imagens.
 
 ## Produção
 
+- **URL de produção:** https://projeto-ong-html5.vercel.app. O endereço `/` redireciona para `/html/`, onde está a aplicação.
 - **Plataforma:** Vercel, com a configuração em `vercel.json`:
   - Framework: Vite
   - Install Command: `npm install`
   - Build Command: `npm run build`
   - Output Directory: `dist`
   - Redirecionamento de `/` para `/html/`
-- **CI/CD:** com o repositório conectado à Vercel, cada merge na `main` dispara um novo deploy de produção:
+  - Cache de longo prazo em `/assets/*`
+- **CI/CD (ativo):** o repositório está conectado à Vercel pela integração com o GitHub. Cada merge na `main` dispara um novo deploy de produção, registrado como *deployment* "Production" pelo `vercel[bot]` no GitHub:
 
   ```text
   merge na main → Vercel → npm install → npm run build → dist/ → deploy
   ```
 
   PRs e outras branches geram deploys de pré-visualização.
-- **URL de produção:** ainda não publicada. Veja o passo a passo abaixo.
-
-**Como conectar à Vercel (uma vez):**
-1. Em https://vercel.com, entre com a conta do GitHub e clique em **Add New… → Project**.
-2. Importe o repositório `juanverass/projeto-ong-html5`. As configurações vêm do `vercel.json`: Vite, `npm run build`, `dist`.
-3. Clique em **Deploy**. A partir daí, cada merge na `main` publica uma nova versão.
 
 O GitHub Pages continua publicando o código-fonte da `main` sem build. Ele funciona porque o projeto usa módulos ES6 nativos, mas a versão otimizada é a da Vercel.
 
@@ -252,4 +263,4 @@ O GitHub Pages continua publicando o código-fonte da `main` sem build. Ele func
 | I: HTML5 | páginas semânticas, formulário com validação nativa | commit inicial |
 | II: Estilização e Layouts | Design System, Grid de 12 colunas, 5 breakpoints, componentes | #1 |
 | III: Interatividade | SPA modular, templates, eventos, localStorage, IMask | #2 |
-| IV: Versionamento e Acessibilidade | WCAG 2.1 AA, alto contraste, Vite, otimização, GitFlow, release | ver milestone "Experiência Prática IV" |
+| IV: Versionamento e Acessibilidade | WCAG 2.1 AA, alto contraste, Vite, otimização, GitFlow, release v1.3.0 e hotfix v1.3.1 | #8, #9 e hotfix |
