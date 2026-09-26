@@ -5,55 +5,184 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Conheça os projetos sociais, o voluntariado e as formas de doação da Solidariedade em Ação.">
     <title>Projetos | Solidariedade em Ação</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js" defer></script>
 </head>
 <body>
-    <header>
-        <p><a href="index.html">Solidariedade em Ação</a></p>
-        <nav aria-label="Navegação principal">
-            <ul>
-                <li><a href="index.html">Início</a></li>
-                <li><a href="projetos.html" aria-current="page">Projetos</a></li>
-                <li><a href="cadastro.html">Cadastro</a></li>
-            </ul>
-        </nav>
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="cabecalho">
+        <div class="cabecalho-conteudo">
+            <p class="logo"><a href="index.html">Solidariedade em Ação</a></p>
+
+            <button class="menu-toggle" type="button" aria-label="Menu de navegação" aria-expanded="false" aria-controls="menu-principal">
+                <span class="menu-toggle-barra"></span>
+                <span class="menu-toggle-barra"></span>
+                <span class="menu-toggle-barra"></span>
+            </button>
+
+            <nav class="navegacao" aria-label="Navegação principal">
+                <ul class="menu" id="menu-principal">
+                    <li class="menu-item"><a href="index.html">Início</a></li>
+                    <li class="menu-item"><a href="projetos.html" aria-current="page">Projetos</a></li>
+                    <li class="menu-item menu-item-dropdown">
+                        <a href="projetos.html#participe">Participar</a>
+                        <ul class="submenu">
+                            <li><a href="projetos.html#voluntariado">Voluntariado</a></li>
+                            <li><a href="projetos.html#doacoes">Doações</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item"><a href="cadastro.html">Cadastro</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <h1>Projetos sociais</h1>
+    <main id="conteudo">
+        <div class="cabecalho-pagina">
+            <div class="container">
+                <div class="cabecalho-pagina-texto">
+                    <h1>Projetos sociais</h1>
+                    <p>Conheça as iniciativas da Solidariedade em Ação e descubra como você pode participar.</p>
+                </div>
+            </div>
+        </div>
 
-        <section aria-labelledby="iniciativas-titulo">
-            <h2 id="iniciativas-titulo">Nossas iniciativas</h2>
+        <section class="secao" aria-labelledby="iniciativas-titulo">
+            <div class="container">
+                <div class="secao-cabecalho iniciativas-cabecalho">
+                    <h2 id="iniciativas-titulo">Nossas iniciativas</h2>
+                    <p>Projetos contínuos que atendem crianças, adolescentes e famílias das comunidades.</p>
+                </div>
 
-            <article aria-labelledby="educacao-titulo">
-                <h3 id="educacao-titulo">Projeto de Educação</h3>
-                <img src="../imagens/projeto-educacao.webp" width="1448" height="1086"
-                     alt="Dois voluntários ajudando crianças sorridentes a desenhar e escrever em cadernos, em uma sala com livros e lápis de cor sobre a mesa.">
-                <p>O projeto oferece atividades educativas, apoio escolar e incentivo à leitura para crianças e adolescentes.</p>
-            </article>
+                <article class="card" aria-labelledby="educacao-titulo">
+                    <img class="card-imagem" src="../imagens/projeto-educacao.webp" width="1448" height="1086"
+                         alt="Dois voluntários ajudando crianças sorridentes a desenhar e escrever em cadernos, em uma sala com livros e lápis de cor sobre a mesa.">
+                    <div class="card-corpo">
+                        <div class="card-conteudo">
+                            <ul class="lista-badges" aria-label="Categorias">
+                                <li class="badge badge-info">Educação</li>
+                                <li class="badge badge-sucesso">Ativo</li>
+                            </ul>
+                            <h3 id="educacao-titulo">Projeto de Educação</h3>
+                            <p>O projeto oferece atividades educativas, apoio escolar e incentivo à leitura para crianças e adolescentes.</p>
+                        </div>
+                        <div class="grupo-botoes">
+                            <a class="botao" href="cadastro.html">Quero participar</a>
+                        </div>
+                    </div>
+                </article>
 
-            <article aria-labelledby="alimentos-titulo">
-                <h3 id="alimentos-titulo">Campanha de Alimentos</h3>
-                <p>A campanha arrecada alimentos, roupas e itens de higiene que são destinados às famílias atendidas pela organização.</p>
-            </article>
+                <article class="card" aria-labelledby="alimentos-titulo">
+                    <img class="card-imagem" src="../imagens/ong-home.webp" width="1448" height="1086"
+                         alt="Voluntários entregando pacotes de arroz, feijão, óleo e frutas arrecadados na campanha a uma moradora da comunidade.">
+                    <div class="card-corpo">
+                        <div class="card-conteudo">
+                            <ul class="lista-badges" aria-label="Categorias">
+                                <li class="badge badge-aviso">Doações</li>
+                                <li class="badge badge-sucesso">Ativo</li>
+                            </ul>
+                            <h3 id="alimentos-titulo">Campanha de Alimentos</h3>
+                            <p>A campanha arrecada alimentos, roupas e itens de higiene que são destinados às famílias atendidas pela organização.</p>
+                        </div>
+                        <div class="grupo-botoes">
+                            <a class="botao" href="cadastro.html">Quero doar</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
         </section>
 
-        <section aria-labelledby="voluntariado-titulo">
-            <h2 id="voluntariado-titulo">Voluntariado</h2>
-            <img src="../imagens/voluntariado-doacoes.webp" width="1448" height="1086"
-                 alt="Voluntários separando e organizando roupas, alimentos enlatados, óleo e produtos de higiene em caixas de doação.">
-            <p>Os voluntários podem participar da organização das doações, das atividades educativas e das ações realizadas nas comunidades.</p>
-            <p><a href="cadastro.html">Cadastre-se como voluntário</a></p>
-        </section>
+        <div class="secao secao-clara" id="participe">
+            <div class="container">
+                <figure class="participe-imagem">
+                    <img src="../imagens/voluntariado-doacoes.webp" width="1448" height="1086"
+                         alt="Voluntários separando e organizando roupas, alimentos enlatados, óleo e produtos de higiene em caixas de doação.">
+                </figure>
 
-        <section aria-labelledby="doacoes-titulo">
-            <h2 id="doacoes-titulo">Doações</h2>
-            <p>Pessoas interessadas também podem colaborar por meio de contribuições financeiras ou da doação de alimentos, roupas e produtos de higiene.</p>
-            <p><a href="cadastro.html">Cadastre-se como doador</a></p>
+                <div class="participe-opcoes">
+                    <section class="painel" id="voluntariado" aria-labelledby="voluntariado-titulo">
+                        <span class="badge badge-info">Voluntariado</span>
+                        <h2 id="voluntariado-titulo">Voluntariado</h2>
+                        <p>Os voluntários podem participar da organização das doações, das atividades educativas e das ações realizadas nas comunidades.</p>
+                        <div class="grupo-botoes">
+                            <a class="botao" href="cadastro.html">Cadastre-se como voluntário</a>
+                        </div>
+                    </section>
+
+                    <section class="painel" id="doacoes" aria-labelledby="doacoes-titulo">
+                        <span class="badge badge-aviso">Doações</span>
+                        <h2 id="doacoes-titulo">Doações</h2>
+                        <p>Pessoas interessadas também podem colaborar por meio de contribuições financeiras ou da doação de alimentos, roupas e produtos de higiene.</p>
+                        <div class="grupo-botoes">
+                            <a class="botao botao-secundario" href="cadastro.html">Cadastre-se como doador</a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <section class="secao" id="componentes" aria-labelledby="componentes-titulo">
+            <div class="container">
+                <div class="secao-cabecalho">
+                    <h2 id="componentes-titulo">Componentes da interface</h2>
+                    <p>Padrões visuais do Design System usados nas páginas do site.</p>
+                </div>
+
+                <div class="vitrine">
+                    <h3>Badges</h3>
+                    <ul class="lista-badges" aria-label="Exemplos de badges">
+                        <li class="badge badge-sucesso">Ativo</li>
+                        <li class="badge badge-info">Educação</li>
+                        <li class="badge badge-info">Voluntariado</li>
+                        <li class="badge badge-aviso">Doações</li>
+                    </ul>
+                </div>
+
+                <div class="vitrine">
+                    <h3>Botões</h3>
+                    <div class="grupo-botoes">
+                        <button type="button">Botão principal</button>
+                        <button type="button" class="botao-secundario">Botão secundário</button>
+                        <button type="button" disabled>Botão desabilitado</button>
+                    </div>
+                </div>
+
+                <div class="vitrine vitrine-larga">
+                    <h3>Alertas</h3>
+                    <div class="grade-alertas">
+                        <div class="alerta alerta-sucesso">
+                            <p><strong>Sucesso:</strong> seu cadastro foi recebido pela equipe.</p>
+                        </div>
+                        <div class="alerta alerta-erro">
+                            <p><strong>Erro:</strong> verifique os campos destacados antes de enviar.</p>
+                        </div>
+                        <div class="alerta alerta-aviso">
+                            <p><strong>Atenção:</strong> CPF, telefone e CEP devem seguir o formato indicado.</p>
+                        </div>
+                        <div class="alerta alerta-info">
+                            <p><strong>Informação:</strong> a campanha de alimentos recebe doações o ano todo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vitrine vitrine-larga">
+                    <h3>Toast</h3>
+                    <p>O toast confirma ações sem recarregar a página e some sozinho após alguns segundos.</p>
+                    <div class="grupo-botoes">
+                        <button type="button" data-toast="Cadastro enviado com sucesso.">Mostrar toast de sucesso</button>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 Solidariedade em Ação. Projeto acadêmico com fins educacionais.</p>
+    <footer class="rodape">
+        <div class="rodape-conteudo">
+            <p>&copy; 2026 Solidariedade em Ação. Projeto acadêmico com fins educacionais.</p>
+        </div>
     </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>

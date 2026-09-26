@@ -5,45 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Solidariedade em Ação: ONG dedicada a projetos sociais para pessoas em situação de vulnerabilidade.">
     <title>Início | Solidariedade em Ação</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Solidariedade em Ação</h1>
-        <nav aria-label="Navegação principal">
-            <ul>
-                <li><a href="index.html" aria-current="page">Início</a></li>
-                <li><a href="projetos.html">Projetos</a></li>
-                <li><a href="cadastro.html">Cadastro</a></li>
-            </ul>
-        </nav>
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="cabecalho">
+        <div class="cabecalho-conteudo">
+            <h1 class="logo"><a href="index.html">Solidariedade em Ação</a></h1>
+
+            <button class="menu-toggle" type="button" aria-label="Menu de navegação" aria-expanded="false" aria-controls="menu-principal">
+                <span class="menu-toggle-barra"></span>
+                <span class="menu-toggle-barra"></span>
+                <span class="menu-toggle-barra"></span>
+            </button>
+
+            <nav class="navegacao" aria-label="Navegação principal">
+                <ul class="menu" id="menu-principal">
+                    <li class="menu-item"><a href="index.html" aria-current="page">Início</a></li>
+                    <li class="menu-item"><a href="projetos.html">Projetos</a></li>
+                    <li class="menu-item menu-item-dropdown">
+                        <a href="projetos.html#participe">Participar</a>
+                        <ul class="submenu">
+                            <li><a href="projetos.html#voluntariado">Voluntariado</a></li>
+                            <li><a href="projetos.html#doacoes">Doações</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item"><a href="cadastro.html">Cadastro</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <section aria-labelledby="sobre-titulo">
-            <h2 id="sobre-titulo">Sobre a ONG</h2>
-            <img src="../imagens/ong-home.webp" width="1448" height="1086"
-                 alt="Voluntários sorridentes da Solidariedade em Ação entregando cestas com alimentos a uma moradora da comunidade, ao ar livre, com o Pão de Açúcar ao fundo.">
-            <p>A Solidariedade em Ação é uma organização dedicada ao desenvolvimento de projetos sociais voltados para pessoas em situação de vulnerabilidade.</p>
-            <p>Nosso objetivo é promover solidariedade, educação e apoio social por meio da participação de voluntários e doadores.</p>
+    <main id="conteudo">
+        <section class="secao secao-destaque" aria-labelledby="sobre-titulo">
+            <div class="container">
+                <div class="destaque-texto">
+                    <span class="badge badge-sucesso">ONG ativa</span>
+                    <h2 id="sobre-titulo" class="destaque-titulo">Sobre a ONG</h2>
+                    <p>A Solidariedade em Ação é uma organização dedicada ao desenvolvimento de projetos sociais voltados para pessoas em situação de vulnerabilidade.</p>
+                    <p>Nosso objetivo é promover solidariedade, educação e apoio social por meio da participação de voluntários e doadores.</p>
+                    <div class="grupo-botoes">
+                        <a class="botao" href="projetos.html">Conheça nossos projetos</a>
+                        <a class="botao botao-secundario" href="cadastro.html">Quero participar</a>
+                    </div>
+                </div>
+                <figure class="destaque-imagem">
+                    <img src="../imagens/ong-home.webp" width="1448" height="1086"
+                         alt="Voluntários sorridentes da Solidariedade em Ação entregando cestas com alimentos a uma moradora da comunidade, ao ar livre, com o Pão de Açúcar ao fundo.">
+                </figure>
+            </div>
         </section>
 
-        <section aria-labelledby="missao-titulo">
-            <h2 id="missao-titulo">Nossa missão</h2>
-            <p>Desenvolver ações que contribuam para melhorar a qualidade de vida das comunidades atendidas, incentivando a participação social e o trabalho voluntário.</p>
+        <section class="secao secao-clara" aria-labelledby="missao-titulo">
+            <div class="container">
+                <div class="secao-cabecalho">
+                    <h2 id="missao-titulo">Nossa missão</h2>
+                    <p class="texto-grande">Desenvolver ações que contribuam para melhorar a qualidade de vida das comunidades atendidas, incentivando a participação social e o trabalho voluntário.</p>
+                </div>
+                <ul class="pilares">
+                    <li class="pilar">
+                        <h3>Solidariedade</h3>
+                        <p>Ações coletivas que aproximam voluntários, doadores e comunidades.</p>
+                    </li>
+                    <li class="pilar">
+                        <h3>Educação</h3>
+                        <p>Atividades educativas, apoio escolar e incentivo à leitura.</p>
+                    </li>
+                    <li class="pilar">
+                        <h3>Apoio social</h3>
+                        <p>Arrecadação e entrega de alimentos, roupas e itens de higiene.</p>
+                    </li>
+                </ul>
+            </div>
         </section>
 
-        <section aria-labelledby="contato-titulo">
-            <h2 id="contato-titulo">Entre em contato</h2>
-            <address>
-                <p>E-mail: <a href="mailto:contato@solidariedadeemacao.org.br">contato@solidariedadeemacao.org.br</a></p>
-                <p>Telefone: <a href="tel:+5521999999999">(21) 99999-9999</a></p>
-                <p>Localização: Rua da Esperança, 100 – Centro, Rio de Janeiro – RJ</p>
-            </address>
+        <section class="secao" aria-labelledby="contato-titulo">
+            <div class="container">
+                <div class="contato">
+                    <h2 id="contato-titulo">Entre em contato</h2>
+                    <address class="contato-lista">
+                        <p><strong>E-mail:</strong> <a href="mailto:contato@solidariedadeemacao.org.br">contato@solidariedadeemacao.org.br</a></p>
+                        <p><strong>Telefone:</strong> <a href="tel:+5521999999999">(21) 99999-9999</a></p>
+                        <p><strong>Localização:</strong> Rua da Esperança, 100 – Centro, Rio de Janeiro – RJ</p>
+                    </address>
+                </div>
+            </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 Solidariedade em Ação. Projeto acadêmico com fins educacionais.</p>
+    <footer class="rodape">
+        <div class="rodape-conteudo">
+            <p>&copy; 2026 Solidariedade em Ação. Projeto acadêmico com fins educacionais.</p>
+        </div>
     </footer>
 </body>
 </html>
