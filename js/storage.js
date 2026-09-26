@@ -1,6 +1,7 @@
 // Único módulo que acessa o localStorage diretamente.
 
 const CHAVE_CADASTRO = 'solidariedadeCadastro';
+const CHAVE_ALTO_CONTRASTE = 'solidariedadeAltoContraste';
 
 /**
  * Salva o cadastro com a data do salvamento.
@@ -49,5 +50,23 @@ export function removerCadastro() {
         localStorage.removeItem(CHAVE_CADASTRO);
     } catch {
         // Sem acesso ao storage não há o que remover.
+    }
+}
+
+/* Preferência de alto contraste ---------------------------------------- */
+
+export function salvarPreferenciaContraste(ativo) {
+    try {
+        localStorage.setItem(CHAVE_ALTO_CONTRASTE, ativo ? 'ativo' : 'inativo');
+    } catch {
+        // Sem storage, a preferência vale só até recarregar a página.
+    }
+}
+
+export function obterPreferenciaContraste() {
+    try {
+        return localStorage.getItem(CHAVE_ALTO_CONTRASTE) === 'ativo';
+    } catch {
+        return false;
     }
 }
