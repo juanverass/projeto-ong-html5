@@ -2,7 +2,13 @@
 // Todos os listeners usam delegação no document, então re-renderizar #app não os duplica.
 
 import { iniciarRouter, navegarPorLink } from './router.js';
-import { obterCadastro, removerCadastro, salvarCadastro } from './storage.js';
+import {
+    obterCadastro,
+    obterPreferenciaContraste,
+    removerCadastro,
+    salvarCadastro,
+    salvarPreferenciaContraste
+} from './storage.js';
 import { formasParticipacao, templateCadastroSalvo } from './templates.js';
 import {
     destruirMascaras,
@@ -17,12 +23,21 @@ import {
 
 const botaoMenu = document.querySelector('.menu-toggle');
 const menu = document.getElementById('menu-principal');
+const botaoContraste = document.getElementById('alternar-contraste');
 
 /* Menu responsivo ------------------------------------------------------ */
 
 function definirMenuAberto(aberto) {
     menu.classList.toggle('ativo', aberto);
     botaoMenu.setAttribute('aria-expanded', String(aberto));
+    botaoMenu.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+}
+
+/* Alto contraste ------------------------------------------------------- */
+
+function aplicarAltoContraste(ativo) {
+    document.body.classList.toggle('alto-contraste', ativo);
+    botaoContraste.setAttribute('aria-pressed', String(ativo));
 }
 
 /* Cadastro ------------------------------------------------------------- */
@@ -71,9 +86,24 @@ function aoClicar(evento) {
         return;
     }
 
+    // Link "Ir para o conteúdo principal": leva o foco ao <main> sem mudar a rota
+    if (evento.target.closest('.pular-conteudo')) {
+        evento.preventDefault();
+        document.getElementById('app').focus();
+        return;
+    }
+
     // Menu hambúrguer
     if (evento.target.closest('.menu-toggle')) {
         definirMenuAberto(!menu.classList.contains('ativo'));
+        return;
+    }
+
+    // Alternar alto contraste (a preferência fica salva no localStorage)
+    if (evento.target.closest('#alternar-contraste')) {
+        const ativo = !document.body.classList.contains('alto-contraste');
+        aplicarAltoContraste(ativo);
+        salvarPreferenciaContraste(ativo);
         return;
     }
 
@@ -169,4 +199,5 @@ window.addEventListener('paginaRenderizada', (evento) => {
     }
 });
 
+aplicarAltoContraste(obterPreferenciaContraste());
 iniciarRouter();

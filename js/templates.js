@@ -1,5 +1,13 @@
 // Templates das páginas da SPA. Cada função devolve o HTML da área principal (#app).
 
+// Caminhos das imagens resolvidos a partir deste módulo. O Vite reconhece o padrão
+// new URL(..., import.meta.url), copia a imagem para a build e ajusta o endereço.
+const imagens = {
+    home: new URL('../imagens/ong-home.webp', import.meta.url).href,
+    educacao: new URL('../imagens/projeto-educacao.webp', import.meta.url).href,
+    voluntariado: new URL('../imagens/voluntariado-doacoes.webp', import.meta.url).href
+};
+
 const projetos = [
     {
         id: 'educacao',
@@ -8,7 +16,7 @@ const projetos = [
         classeBadge: 'badge-info',
         status: 'Ativo',
         descricao: 'O projeto oferece atividades educativas, apoio escolar e incentivo à leitura para crianças e adolescentes.',
-        imagem: '../imagens/projeto-educacao.webp',
+        imagem: imagens.educacao,
         alt: 'Dois voluntários ajudando crianças sorridentes a desenhar e escrever em cadernos, em uma sala com livros e lápis de cor sobre a mesa.',
         acao: 'Quero participar'
     },
@@ -19,7 +27,7 @@ const projetos = [
         classeBadge: 'badge-aviso',
         status: 'Ativo',
         descricao: 'A campanha arrecada alimentos, roupas e itens de higiene que são destinados às famílias atendidas pela organização.',
-        imagem: '../imagens/voluntariado-doacoes.webp',
+        imagem: imagens.voluntariado,
         alt: 'Voluntários separando roupas, alimentos enlatados, óleo e produtos de higiene arrecadados pela campanha em caixas de doação.',
         acao: 'Quero doar'
     }
@@ -106,7 +114,7 @@ export function escaparHtml(texto) {
 function templateCardProjeto(projeto) {
     return `
         <article class="card" aria-labelledby="${projeto.id}-titulo">
-            <img class="card-imagem" src="${projeto.imagem}" width="1448" height="1086" alt="${projeto.alt}">
+            <img class="card-imagem" src="${projeto.imagem}" width="1448" height="1086" loading="lazy" decoding="async" alt="${projeto.alt}">
             <div class="card-corpo">
                 <div class="card-conteudo">
                     <ul class="lista-badges" aria-label="Categorias">
@@ -148,7 +156,7 @@ export function templateInicio() {
                     </div>
                 </div>
                 <figure class="destaque-imagem">
-                    <img src="../imagens/ong-home.webp" width="1448" height="1086"
+                    <img src="${imagens.home}" width="1448" height="1086" fetchpriority="high"
                          alt="Voluntários sorridentes da Solidariedade em Ação entregando cestas com alimentos a uma moradora da comunidade, ao ar livre, com o Pão de Açúcar ao fundo.">
                 </figure>
             </div>
@@ -186,14 +194,14 @@ export function templateInicio() {
 
 export function templateProjetos() {
     return `
-        <div class="cabecalho-pagina">
+        <header class="cabecalho-pagina">
             <div class="container">
                 <div class="cabecalho-pagina-texto">
                     <h1 tabindex="-1">Projetos sociais</h1>
                     <p>Conheça as iniciativas da Solidariedade em Ação e descubra como você pode participar.</p>
                 </div>
             </div>
-        </div>
+        </header>
 
         <section class="secao" aria-labelledby="iniciativas-titulo">
             <div class="container">
@@ -205,10 +213,10 @@ export function templateProjetos() {
             </div>
         </section>
 
-        <div class="secao secao-clara" id="participe" tabindex="-1">
+        <section class="secao secao-clara" id="participe" tabindex="-1" aria-label="Como participar">
             <div class="container">
                 <figure class="participe-imagem">
-                    <img src="../imagens/ong-home.webp" width="1448" height="1086"
+                    <img src="${imagens.home}" width="1448" height="1086" loading="lazy" decoding="async"
                          alt="Voluntários da Solidariedade em Ação entregando pacotes de arroz, feijão, óleo e frutas a uma moradora da comunidade.">
                 </figure>
 
@@ -232,7 +240,7 @@ export function templateProjetos() {
                     </section>
                 </div>
             </div>
-        </div>
+        </section>
 
         <section class="secao" id="componentes" tabindex="-1" aria-labelledby="componentes-titulo">
             <div class="container">
@@ -280,14 +288,14 @@ export function templateProjetos() {
 
 export function templateCadastro() {
     return `
-        <div class="cabecalho-pagina">
+        <header class="cabecalho-pagina">
             <div class="container">
                 <div class="cabecalho-pagina-texto">
                     <h1 tabindex="-1">Cadastro de voluntários e doadores</h1>
                     <p>Preencha o formulário abaixo para participar das ações da Solidariedade em Ação. Todos os campos são obrigatórios.</p>
                 </div>
             </div>
-        </div>
+        </header>
 
         <div class="secao">
             <div class="container">

@@ -15,6 +15,7 @@
     --cor-destaque-escura: #1C5FB8;
     --cor-sucesso: #2E7D32;
     --cor-sucesso-clara: #E8F5E9;
+    --cor-sucesso-texto: #1B5E20;
     --cor-erro: #C62828;
     --cor-erro-clara: #FDECEA;
     --cor-aviso: #A65B00;
@@ -25,6 +26,9 @@
     --cor-texto: #222222;
     --cor-texto-secundario: #666666;
     --cor-borda: #D0D5DD;
+    --cor-borda-campo: #6B7280;
+    --cor-foco: #1C5FB8;
+    --cor-foco-escuro: var(--cor-secundaria);
 
     /* Tipografia */
     --fonte-familia: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -130,9 +134,13 @@ a:hover {
     color: var(--cor-primaria-escura);
 }
 
+/* Foco visível em qualquer elemento focável (links, botões, campos, controles) */
+:focus-visible {
+    outline: 3px solid var(--cor-foco);
+    outline-offset: 3px;
+}
+
 a:focus-visible {
-    outline: 3px solid var(--cor-destaque);
-    outline-offset: 2px;
     border-radius: 2px;
 }
 
@@ -142,7 +150,7 @@ a:focus-visible {
 }
 
 [tabindex="-1"]:focus-visible {
-    outline: 3px solid var(--cor-destaque);
+    outline: 3px solid var(--cor-foco);
     outline-offset: 4px;
 }
 
@@ -180,6 +188,12 @@ a:focus-visible {
 .container > * {
     grid-column: 1 / -1;
     min-width: 0;
+}
+
+/* A área da SPA ocupa ao menos uma tela: o rodapé não "pula" quando o
+   conteúdo é renderizado (evita Cumulative Layout Shift) */
+#app {
+    min-height: 100vh;
 }
 
 .secao {
@@ -221,6 +235,7 @@ a:focus-visible {
 
 .logo {
     margin: 0;
+    margin-right: auto;
     font-size: var(--fonte-md);
     font-weight: 700;
     line-height: 1.2;
@@ -231,9 +246,11 @@ a:focus-visible {
     text-decoration: none;
 }
 
+/* Sobre os fundos verdes escuros o foco fica amarelo (3,4:1 ou mais) */
 .cabecalho a:focus-visible,
+.cabecalho button:focus-visible,
 .rodape a:focus-visible {
-    outline-color: var(--cor-secundaria);
+    outline-color: var(--cor-foco-escuro);
 }
 
 .menu {
@@ -309,8 +326,50 @@ a:focus-visible {
     color: var(--cor-primaria-escura);
 }
 
+/* O submenu do desktop tem fundo branco: foco azul */
 .submenu a:focus-visible {
+    outline-color: var(--cor-foco);
     outline-offset: -3px;
+}
+
+/* Botão de alto contraste */
+.botao-contraste {
+    gap: var(--espacamento-xs);
+    min-height: 44px;
+    padding: 6px 12px;
+    font-size: var(--fonte-xs);
+    color: var(--cor-branca);
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.botao-contraste:hover {
+    background-color: var(--cor-primaria-escura);
+    border-color: var(--cor-branca);
+}
+
+.botao-contraste[aria-pressed="true"] {
+    color: var(--cor-primaria-escura);
+    background-color: var(--cor-secundaria);
+    border-color: var(--cor-secundaria);
+}
+
+.botao-contraste-icone {
+    font-size: var(--fonte-md);
+    line-height: 1;
+}
+
+/* Esconde o texto visualmente, mas mantém para leitores de tela */
+.visualmente-oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* Botão hambúrguer (visível apenas no mobile) */
@@ -585,7 +644,7 @@ button:disabled:hover {
 }
 
 .badge-sucesso {
-    color: var(--cor-sucesso);
+    color: var(--cor-sucesso-texto);
     background-color: var(--cor-sucesso-clara);
 }
 
@@ -644,7 +703,7 @@ button:disabled:hover {
 }
 
 .alerta-sucesso strong {
-    color: var(--cor-sucesso);
+    color: var(--cor-sucesso-texto);
 }
 
 .alerta-erro strong {
@@ -669,7 +728,7 @@ button:disabled:hover {
     max-width: 360px;
     padding: var(--espacamento-sm) var(--espacamento-md);
     font-weight: 600;
-    color: var(--cor-sucesso);
+    color: var(--cor-sucesso-texto);
     background-color: var(--cor-branca);
     border: 1px solid var(--cor-borda);
     border-left: 6px solid var(--cor-sucesso);
@@ -763,7 +822,7 @@ select {
     font-size: var(--fonte-sm);
     color: var(--cor-texto);
     background-color: var(--cor-branca);
-    border: 2px solid var(--cor-borda);
+    border: 2px solid var(--cor-borda-campo);
     border-radius: var(--raio-borda);
     transition: border-color var(--transicao);
 }
@@ -798,8 +857,9 @@ select.campo-invalido {
 }
 
 input:focus,
-select:focus {
-    outline: 2px solid var(--cor-destaque);
+select:focus,
+input[type="date"]:focus-within {
+    outline: 3px solid var(--cor-foco);
     outline-offset: 1px;
 }
 
@@ -836,7 +896,7 @@ select:focus {
     flex: 1 1 200px;
     margin: 0;
     padding: 12px var(--espacamento-sm);
-    border: 2px solid var(--cor-borda);
+    border: 2px solid var(--cor-borda-campo);
     border-radius: var(--raio-borda);
     transition: border-color var(--transicao), background-color var(--transicao);
 }
@@ -921,6 +981,25 @@ select:focus {
 
 /* Até 480px: celulares pequenos, conteúdo empilhado */
 @media (max-width: 480px) {
+    .logo {
+        font-size: var(--fonte-sm);
+    }
+
+    .botao-contraste {
+        width: 48px;
+        padding: 0;
+    }
+
+    .botao-contraste-texto {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
     :root {
         --padding-lateral: var(--espacamento-sm);
         --gap-grid: var(--espacamento-sm);
@@ -997,8 +1076,17 @@ select:focus {
         display: block;
     }
 
+    /* Sem espaço extra embaixo do cabeçalho quando o menu está fechado */
+    .cabecalho-conteudo {
+        row-gap: 0;
+    }
+
     .navegacao {
         flex-basis: 100%;
+    }
+
+    .menu.ativo {
+        margin-top: var(--espacamento-sm);
     }
 
     .menu {
@@ -1043,6 +1131,10 @@ select:focus {
     .submenu a:hover {
         color: var(--cor-branca);
         background-color: var(--cor-primaria-escura);
+    }
+
+    .submenu a:focus-visible {
+        outline-color: var(--cor-foco-escuro);
     }
 
     .menu-item-dropdown > a::after {
@@ -1271,6 +1363,127 @@ select:focus {
     .cadastro-ajuda {
         position: sticky;
         top: 100px;
+    }
+}
+
+/* 14. Modo de alto contraste
+   Ativado pelo botão do cabeçalho; a preferência fica no localStorage.
+   Rácios medidos: #FFFFFF/#000000 21:1, #00FF88/#000000 15,66:1,
+   #FFD700/#000000 14,97:1, #000000/#00FF88 15,66:1, #FF6B6B/#000000 7,57:1.
+   ========================================================================== */
+body.alto-contraste {
+    --cor-fundo: #000000;
+    --cor-branca: #000000;
+    --cor-texto: #FFFFFF;
+    --cor-texto-secundario: #F2F2F2;
+    --cor-primaria: #00FF88;
+    --cor-primaria-escura: #00FF88;
+    --cor-primaria-clara: #000000;
+    --cor-secundaria: #FFD700;
+    --cor-destaque: #FFD700;
+    --cor-destaque-escura: #FFD700;
+    --cor-sucesso: #00FF88;
+    --cor-sucesso-texto: #00FF88;
+    --cor-sucesso-clara: #000000;
+    --cor-erro: #FF6B6B;
+    --cor-erro-clara: #000000;
+    --cor-aviso: #FFD700;
+    --cor-aviso-clara: #000000;
+    --cor-info-clara: #000000;
+    --cor-borda: #FFFFFF;
+    --cor-borda-campo: #FFFFFF;
+    --cor-foco: #FFD700;
+    --cor-foco-escuro: #000000;
+    --sombra-leve: none;
+    --sombra-media: none;
+    --sombra-botao: none;
+}
+
+/* Sem sombras, as superfícies ganham contorno para continuarem distinguíveis */
+body.alto-contraste .card,
+body.alto-contraste .painel,
+body.alto-contraste .pilar,
+body.alto-contraste .vitrine,
+body.alto-contraste .contato,
+body.alto-contraste .alerta,
+body.alto-contraste .badge,
+body.alto-contraste .submenu,
+body.alto-contraste fieldset,
+body.alto-contraste .cabecalho-pagina,
+body.alto-contraste .rodape {
+    border: 1px solid #FFFFFF;
+}
+
+body.alto-contraste .secao-destaque {
+    background: #000000;
+}
+
+body.alto-contraste a:not(.botao) {
+    color: #FFD700;
+}
+
+body.alto-contraste .cabecalho a:not(.botao),
+body.alto-contraste .rodape a:not(.botao) {
+    color: #000000;
+}
+
+body.alto-contraste .submenu a:not(.botao) {
+    color: #FFFFFF;
+}
+
+body.alto-contraste button:hover,
+body.alto-contraste .botao:hover {
+    color: #000000;
+    background: #FFD700;
+    border-color: #FFD700;
+}
+
+body.alto-contraste .botao-secundario {
+    color: #00FF88;
+}
+
+body.alto-contraste .menu-toggle,
+body.alto-contraste .botao-contraste {
+    color: #000000;
+    border-color: #000000;
+}
+
+body.alto-contraste .botao-contraste[aria-pressed="true"] {
+    color: #FFD700;
+    background-color: #000000;
+}
+
+body.alto-contraste .menu-item > a:hover,
+body.alto-contraste .menu-item > a[aria-current="page"] {
+    border-bottom-color: #000000;
+}
+
+body.alto-contraste .menu-toggle-barra {
+    background-color: #000000;
+}
+
+body.alto-contraste .rodape {
+    color: #000000;
+}
+
+body.alto-contraste button:focus,
+body.alto-contraste .botao:focus {
+    outline-color: #FFD700;
+    box-shadow: 0 0 0 5px #000000;
+}
+
+@media (max-width: 768px) {
+    body.alto-contraste .submenu a:not(.botao) {
+        color: #000000;
+    }
+
+    body.alto-contraste .menu-item > a:hover,
+    body.alto-contraste .menu-item > a[aria-current="page"] {
+        box-shadow: inset 4px 0 0 #000000;
+    }
+
+    body.alto-contraste .submenu {
+        border: 0;
     }
 }
 

@@ -1,0 +1,21 @@
+# Dependências e build
+node_modules/
+dist/
+
+# Variáveis de ambiente e credenciais
+.env
+.env.*
+
+# Vercel CLI
+.vercel/
+
+# Configurações locais de editor e sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs e temporários
+*.log
+npm-debug.log*
+*.tmp
