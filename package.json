@@ -1,0 +1,15 @@
+{
+  "name": "solidariedade-em-acao",
+  "version": "1.3.0",
+  "private": true,
+  "description": "Plataforma acadêmica que simula a presença digital de uma ONG: projetos sociais, voluntariado, doações e cadastro.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.3.1"
+  }
+}
