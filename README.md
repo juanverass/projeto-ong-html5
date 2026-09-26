@@ -6,6 +6,8 @@ Site desenvolvido como atividade acadêmica para uma ONG fictícia, sem framewor
 - **II:** estilização e layouts responsivos com CSS3.
 - **III:** o site vira uma Single Page Application (SPA) em JavaScript modular.
 
+**Site publicado:** https://juanverass.github.io/projeto-ong-html5/
+
 ## Estrutura
 
 ```text
@@ -23,7 +25,7 @@ O JavaScript usa ES6 Modules (`<script type="module">`). Os navegadores bloqueia
 
 - **VS Code:** instale a extensão **Live Server**, clique com o botão direito em `html/index.html` e escolha **Open with Live Server**.
 - **Terminal:** na pasta `projeto-ong`, rode `npx serve .` ou `python -m http.server 8080` e acesse o endereço indicado (por exemplo, `http://localhost:3000`).
-- **GitHub Pages:** publicado pelo GitHub, o site funciona sem nada instalado.
+- **GitHub Pages:** o site está publicado em https://juanverass.github.io/projeto-ong-html5/ e funciona sem nada instalado. Cada merge na `main` atualiza a versão publicada.
 
 O `index.html` da raiz redireciona automaticamente para `html/index.html`, então basta abrir o endereço do servidor.
 
