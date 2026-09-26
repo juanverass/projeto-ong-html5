@@ -136,6 +136,16 @@ a:focus-visible {
     border-radius: 2px;
 }
 
+/* Alvos de foco da SPA: sem anel quando o foco vem do clique, com anel via teclado */
+[tabindex="-1"]:focus:not(:focus-visible) {
+    outline: none;
+}
+
+[tabindex="-1"]:focus-visible {
+    outline: 3px solid var(--cor-destaque);
+    outline-offset: 4px;
+}
+
 /* Link para pular direto ao conteúdo (visível apenas ao receber foco) */
 .pular-conteudo {
     position: absolute;
@@ -428,6 +438,12 @@ button:disabled:hover {
 .destaque-titulo {
     margin-top: var(--espacamento-sm);
     font-size: var(--fonte-xl);
+}
+
+.destaque-subtitulo {
+    margin-bottom: var(--espacamento-xs);
+    font-size: var(--fonte-md);
+    color: var(--cor-primaria);
 }
 
 .destaque-texto p {
@@ -768,10 +784,42 @@ select:user-invalid {
     border-color: var(--cor-erro);
 }
 
+/* Classes aplicadas pelo JavaScript (validacoes.js) durante a digitação */
+input.campo-valido,
+select.campo-valido {
+    border-color: var(--cor-sucesso);
+    background-color: var(--cor-sucesso-clara);
+}
+
+input.campo-invalido,
+select.campo-invalido {
+    border-color: var(--cor-erro);
+    background-color: var(--cor-erro-clara);
+}
+
 input:focus,
 select:focus {
     outline: 2px solid var(--cor-destaque);
     outline-offset: 1px;
+}
+
+.mensagem-erro {
+    font-size: var(--fonte-xs);
+    font-weight: 600;
+    color: var(--cor-erro);
+}
+
+.mensagem-erro:empty {
+    display: none;
+}
+
+.info-participacao {
+    margin: var(--espacamento-sm) 0 0;
+    color: var(--cor-texto-secundario);
+}
+
+.info-participacao:empty {
+    display: none;
 }
 
 /* Opções de participação (radio) */
@@ -798,6 +846,23 @@ select:focus {
     background-color: var(--cor-primaria-clara);
 }
 
+.opcoes.campo-invalido .opcao {
+    border-color: var(--cor-erro);
+}
+
+.opcoes.campo-valido .opcao:has(input:checked) {
+    border-color: var(--cor-sucesso);
+}
+
+.opcoes + .mensagem-erro {
+    display: block;
+    margin-top: var(--espacamento-xs);
+}
+
+.opcoes + .mensagem-erro:empty {
+    display: none;
+}
+
 .opcao input {
     width: 20px;
     min-height: 0;
@@ -813,6 +878,24 @@ select:focus {
 
 .cadastro-ajuda .alerta:first-child {
     margin-top: 0;
+}
+
+.cadastro-salvo .grupo-botoes {
+    margin-top: var(--espacamento-sm);
+}
+
+#feedback-formulario:empty {
+    display: none;
+}
+
+#feedback-formulario .alerta {
+    margin: 0;
+}
+
+.botao-pequeno {
+    min-height: 36px;
+    padding: 6px var(--espacamento-sm);
+    font-size: var(--fonte-xs);
 }
 
 /* 12. Rodapé
