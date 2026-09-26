@@ -10,7 +10,8 @@ Site desenvolvido como atividade acadêmica para uma ONG fictícia, sem framewor
 
 ```text
 projeto-ong/
-├── html/      index.html (único HTML: casca da SPA)
+├── index.html (só redireciona para html/index.html)
+├── html/      index.html (casca da SPA)
 ├── css/       style.css
 ├── js/        app.js, router.js, templates.js, storage.js, validacoes.js
 └── imagens/   ong-home.webp, projeto-educacao.webp, voluntariado-doacoes.webp
@@ -21,8 +22,10 @@ projeto-ong/
 O JavaScript usa ES6 Modules (`<script type="module">`). Os navegadores bloqueiam módulos em arquivos abertos com duplo clique (`file://`), por uma regra de segurança (CORS). Por isso, abra o `html/index.html` por um servidor local:
 
 - **VS Code:** instale a extensão **Live Server**, clique com o botão direito em `html/index.html` e escolha **Open with Live Server**.
-- **Terminal:** na pasta `projeto-ong`, rode `npx serve .` ou `python -m http.server 8080` e acesse `http://localhost:8080/html/index.html`.
+- **Terminal:** na pasta `projeto-ong`, rode `npx serve .` ou `python -m http.server 8080` e acesse o endereço indicado (por exemplo, `http://localhost:3000`).
 - **GitHub Pages:** publicado pelo GitHub, o site funciona sem nada instalado.
+
+O `index.html` da raiz redireciona automaticamente para `html/index.html`, então basta abrir o endereço do servidor.
 
 Se o arquivo for aberto direto, a página mostra um aviso com essas instruções no lugar do conteúdo.
 
